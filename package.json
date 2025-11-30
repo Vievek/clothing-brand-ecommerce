@@ -1,0 +1,29 @@
+{
+  "name": "clothing-brand-ecommerce",
+  "version": "1.0.0",
+  "description": "E-commerce web app for clothing brand",
+  "main": "index.js",
+  "scripts": {
+    "dev:backend": "cd backend && npm run dev",
+    "dev:frontend": "cd frontend && npm run dev",
+    "test:backend": "cd backend && npm test",
+    "test:frontend": "cd frontend && npm test",
+    "lint:backend": "eslint backend/src/ --ext .js",
+    "lint:frontend": "eslint frontend/src/ --ext .js,.jsx,.ts,.tsx",
+    "lint:fix:backend": "eslint backend/src/ --ext .js --fix",
+    "lint:fix:frontend": "eslint frontend/src/ --ext .js,.jsx,.ts,.tsx --fix"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "commitizen": "^4.3.1",
+    "cz-conventional-changelog": "^3.3.0",
+    "eslint": "^9.39.1"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  }
+}
