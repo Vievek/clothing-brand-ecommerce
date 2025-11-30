@@ -1,11 +1,17 @@
 export default {
   testEnvironment: "node",
-  transform: {},
-  extensionsToTreatAsEsm: [".js"],
+
+  // Use babel-jest to transform JS files
+  transform: {
+    "^.+\\.js$": "babel-jest",
+  },
+
   moduleNameMapper: {
     "^(\\.{1,2}/.*)\\.js$": "$1",
   },
+
   collectCoverageFrom: ["src/**/*.js", "!src/server.js", "!src/scripts/**"],
+
   coverageThreshold: {
     global: {
       branches: 80,
