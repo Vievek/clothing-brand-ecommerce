@@ -10,7 +10,7 @@
     "test:frontend": "cd frontend && npm test",
     "lint:backend": "eslint backend/src/ --ext .js",
     "lint:frontend": "eslint frontend/src/ --ext .js,.jsx,.ts,.tsx",
-    "lint:fix:backend": "eslint backend/src/ --ext .js --fix || echo 'No backend files yet'",
+    "lint:fix:backend": "eslint backend/src/ --ext .js --fix ",
     "lint:fix:frontend": "eslint frontend/src/ --ext .js,.jsx,.ts,.tsx --fix || echo 'No frontend files yet'",
     "prepare": "husky"
   },

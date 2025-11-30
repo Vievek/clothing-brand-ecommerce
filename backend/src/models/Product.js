@@ -1,22 +1,31 @@
 import mongoose from "mongoose";
 
+// Constants for magic numbers
+const MAX_NAME_LENGTH = 100;
+const MAX_DESCRIPTION_LENGTH = 1000;
+const MIN_PRICE = 0;
+const MIN_STOCK = 0;
+
 const productSchema = new mongoose.Schema(
   {
     name: {
       type: String,
       required: [true, "Product name is required"],
       trim: true,
-      maxlength: [100, "Product name cannot exceed 100 characters"],
+      maxlength: [MAX_NAME_LENGTH, "Product name cannot exceed 100 characters"],
     },
     description: {
       type: String,
       required: [true, "Product description is required"],
-      maxlength: [1000, "Description cannot exceed 1000 characters"],
+      maxlength: [
+        MAX_DESCRIPTION_LENGTH,
+        "Description cannot exceed 1000 characters",
+      ],
     },
     price: {
       type: Number,
       required: [true, "Product price is required"],
-      min: [0, "Price cannot be negative"],
+      min: [MIN_PRICE, "Price cannot be negative"],
     },
     imageUrl: {
       type: String,
@@ -46,7 +55,7 @@ const productSchema = new mongoose.Schema(
     stock: {
       type: Number,
       required: [true, "Stock quantity is required"],
-      min: [0, "Stock cannot be negative"],
+      min: [MIN_STOCK, "Stock cannot be negative"],
       default: 0,
     },
     isActive: {

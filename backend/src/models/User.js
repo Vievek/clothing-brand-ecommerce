@@ -1,13 +1,18 @@
 import mongoose from "mongoose";
 import bcrypt from "bcryptjs";
 
+// Constants for magic numbers
+const MAX_NAME_LENGTH = 50;
+const MIN_PASSWORD_LENGTH = 6;
+const BCRYPT_SALT_ROUNDS = 12;
+
 const userSchema = new mongoose.Schema(
   {
     name: {
       type: String,
       required: [true, "Name is required"],
       trim: true,
-      maxlength: [50, "Name cannot exceed 50 characters"],
+      maxlength: [MAX_NAME_LENGTH, "Name cannot exceed 50 characters"],
     },
     email: {
       type: String,
@@ -24,7 +29,10 @@ const userSchema = new mongoose.Schema(
     password: {
       type: String,
       required: [true, "Password is required"],
-      minlength: [6, "Password must be at least 6 characters"],
+      minlength: [
+        MIN_PASSWORD_LENGTH,
+        "Password must be at least 6 characters",
+      ],
       select: false,
     },
     googleId: {
@@ -43,8 +51,13 @@ const userSchema = new mongoose.Schema(
 
 userSchema.pre("save", async function (next) {
   if (!this.isModified("password")) return next();
-  this.password = await bcrypt.hash(this.password, 12);
-  next();
+
+  try {
+    this.password = await bcrypt.hash(this.password, BCRYPT_SALT_ROUNDS);
+    return next();
+  } catch (error) {
+    return next(error);
+  }
 });
 
 userSchema.methods.correctPassword = async function (
