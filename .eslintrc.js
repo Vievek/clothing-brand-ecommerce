@@ -5,6 +5,17 @@ module.exports = {
     es2020: true,
     node: true,
   },
+  ignores: [
+    "node_modules",
+    "backend/dist",
+    "backend/build",
+    "frontend/dist",
+    "frontend/build",
+    "coverage",
+    "*.config.js",
+    "backend/.env",
+    "frontend/.env",
+  ],
   parserOptions: {
     ecmaVersion: 2020,
     sourceType: "module",
