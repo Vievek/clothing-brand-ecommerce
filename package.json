@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "E-commerce web app for clothing brand",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "dev:backend": "cd backend && npm run dev",
     "dev:frontend": "cd frontend && npm run dev",
@@ -11,7 +12,7 @@
     "lint:backend": "eslint backend/src/ --ext .js",
     "lint:frontend": "eslint frontend/src/ --ext .js,.jsx,.ts,.tsx",
     "lint:fix:backend": "eslint backend/src/ --ext .js --fix ",
-    "lint:fix:frontend": "eslint frontend/src/ --ext .js,.jsx,.ts,.tsx --fix || echo 'No frontend files yet'",
+    "lint:fix:frontend": "eslint frontend/src/ --ext .js,.jsx,.ts,.tsx --fix",
     "prepare": "husky"
   },
   "keywords": [],
