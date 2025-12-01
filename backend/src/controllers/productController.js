@@ -1,11 +1,15 @@
-import Product from "../models/Product.js";
-import asyncHandler from "../utils/asyncHandler.js";
-import { productQuerySchema } from "../validations/productValidation.js";
+import Product from '../models/Product.js';
+import asyncHandler from '../utils/asyncHandler.js';
+import { productQuerySchema } from '../validations/productValidation.js';
 
 const createPriceQuery = (minPrice, maxPrice) => {
   const priceQuery = {};
-  if (minPrice !== undefined) priceQuery.$gte = minPrice;
-  if (maxPrice !== undefined) priceQuery.$lte = maxPrice;
+  if (minPrice !== undefined) {
+    priceQuery.$gte = minPrice;
+  }
+  if (maxPrice !== undefined) {
+    priceQuery.$lte = maxPrice;
+  }
   return priceQuery;
 };
 
@@ -13,8 +17,12 @@ const buildProductQuery = (validatedQuery) => {
   const { category, size, minPrice, maxPrice, search } = validatedQuery;
   const query = { isActive: true };
 
-  if (category) query.category = category;
-  if (size) query.sizes = size;
+  if (category) {
+    query.category = category;
+  }
+  if (size) {
+    query.sizes = size;
+  }
 
   if (minPrice !== undefined || maxPrice !== undefined) {
     query.price = createPriceQuery(minPrice, maxPrice);
@@ -57,7 +65,7 @@ export const getProducts = asyncHandler(async (req, res) => {
   const pagination = calculatePagination(total, page, limit);
 
   res.json({
-    status: "success",
+    status: 'success',
     data: {
       products,
       pagination,
@@ -71,22 +79,22 @@ export const getProductById = asyncHandler(async (req, res) => {
   if (!product || !product.isActive) {
     const notFoundCode = 404;
     return res.status(notFoundCode).json({
-      status: "fail",
-      message: "Product not found",
+      status: 'fail',
+      message: 'Product not found',
     });
   }
 
   return res.json({
-    status: "success",
+    status: 'success',
     data: { product },
   });
 });
 
 export const getProductCategories = asyncHandler(async (_req, res) => {
-  const categories = await Product.distinct("category", { isActive: true });
+  const categories = await Product.distinct('category', { isActive: true });
 
   return res.json({
-    status: "success",
+    status: 'success',
     data: { categories },
   });
 });

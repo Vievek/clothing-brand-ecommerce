@@ -10,7 +10,7 @@ const handleJWTError = () =>
 const handleJWTExpiredError = () =>
   new AppError(
     'Your token has expired! Please log in again.',
-    UNAUTHORIZED_STATUS,
+    UNAUTHORIZED_STATUS
   );
 
 const handleZodError = (error) => {

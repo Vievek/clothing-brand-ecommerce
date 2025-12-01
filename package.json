@@ -13,6 +13,7 @@
     "lint:frontend": "eslint frontend/src/ --ext .js,.jsx,.ts,.tsx",
     "lint:fix:backend": "eslint backend/src/ --ext .js --fix ",
     "lint:fix:frontend": "eslint frontend/src/ --ext .js,.jsx,.ts,.tsx --fix",
+    "prettier:fix": "prettier --write .",
     "prepare": "husky"
   },
   "keywords": [],
@@ -22,7 +23,8 @@
     "commitizen": "^4.3.1",
     "cz-conventional-changelog": "^3.3.0",
     "eslint": "^9.39.1",
-    "husky": "^9.1.7"
+    "husky": "^9.1.7",
+    "prettier": "^3.7.3"
   },
   "config": {
     "commitizen": {

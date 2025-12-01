@@ -55,7 +55,7 @@ const orderSchema = new mongoose.Schema(
   },
   {
     timestamps: true,
-  },
+  }
 );
 
 orderSchema.index({ user: 1, orderDate: -1 });

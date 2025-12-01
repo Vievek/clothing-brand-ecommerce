@@ -15,14 +15,14 @@ export const productCreateSchema = z.object({
     .min(1, 'Product name is required')
     .max(
       PRODUCT_NAME_MAX_LENGTH,
-      `Product name cannot exceed ${PRODUCT_NAME_MAX_LENGTH} characters`,
+      `Product name cannot exceed ${PRODUCT_NAME_MAX_LENGTH} characters`
     ),
   description: z
     .string()
     .min(1, 'Product description is required')
     .max(
       PRODUCT_DESCRIPTION_MAX_LENGTH,
-      `Description cannot exceed ${PRODUCT_DESCRIPTION_MAX_LENGTH} characters`,
+      `Description cannot exceed ${PRODUCT_DESCRIPTION_MAX_LENGTH} characters`
     ),
   price: z
     .number()

@@ -18,21 +18,21 @@ export const userRegistrationSchema = z.object({
     .email('Please provide a valid email address')
     .max(
       EMAIL_MAX_LENGTH,
-      `Email cannot exceed ${EMAIL_MAX_LENGTH} characters`,
+      `Email cannot exceed ${EMAIL_MAX_LENGTH} characters`
     ),
   password: z
     .string()
     .min(
       PASSWORD_MIN_LENGTH,
-      `Password must be at least ${PASSWORD_MIN_LENGTH} characters`,
+      `Password must be at least ${PASSWORD_MIN_LENGTH} characters`
     )
     .max(
       PASSWORD_MAX_LENGTH,
-      `Password cannot exceed ${PASSWORD_MAX_LENGTH} characters`,
+      `Password cannot exceed ${PASSWORD_MAX_LENGTH} characters`
     )
     .regex(
       /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)/,
-      'Password must contain at least one lowercase letter, one uppercase letter, and one number',
+      'Password must contain at least one lowercase letter, one uppercase letter, and one number'
     ),
 });
 

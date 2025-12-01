@@ -19,7 +19,7 @@ export const auth = asyncHandler(async (req, _res, next) => {
 
   if (!token) {
     return next(
-      new AppError('Please login to access this resource', UNAUTHORIZED_STATUS),
+      new AppError('Please login to access this resource', UNAUTHORIZED_STATUS)
     );
   }
 

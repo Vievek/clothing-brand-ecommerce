@@ -23,7 +23,7 @@ app.use(
   cors({
     origin: process.env.CLIENT_URL || 'http://localhost:3000',
     credentials: true,
-  }),
+  })
 );
 
 // Body parsing middleware
@@ -63,7 +63,7 @@ if (process.env.NODE_ENV !== 'test') {
   const server = app.listen(PORT, () => {
     // Use allowed console methods only
     console.warn(
-      `Server running in ${process.env.NODE_ENV} mode on port ${PORT}`,
+      `Server running in ${process.env.NODE_ENV} mode on port ${PORT}`
     );
   });
 

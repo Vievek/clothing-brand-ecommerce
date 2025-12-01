@@ -61,7 +61,7 @@ export const register = asyncHandler(async (req, res, next) => {
   const existingUser = await User.findOne({ email: validatedData.email });
   if (existingUser) {
     return next(
-      new AppError('User already exists with this email', BAD_REQUEST_STATUS),
+      new AppError('User already exists with this email', BAD_REQUEST_STATUS)
     );
   }
 
@@ -80,13 +80,13 @@ export const login = asyncHandler(async (req, res, next) => {
 
   // Find user and include password
   const user = await User.findOne({ email: validatedData.email }).select(
-    '+password',
+    '+password'
   );
 
   // Check if user exists and password is correct
   if (!user || !(await user.correctPassword(validatedData.password))) {
     return next(
-      new AppError('Incorrect email or password', UNAUTHORIZED_STATUS),
+      new AppError('Incorrect email or password', UNAUTHORIZED_STATUS)
     );
   }
 
@@ -111,9 +111,11 @@ export const googleAuth = asyncHandler(async (req, res) => {
   return res.status(OK_STATUS).json(createAuthResponse(user, authToken));
 });
 
-export const getMe = asyncHandler(async (req, res) => res.status(OK_STATUS).json({
+export const getMe = asyncHandler(async (req, res) =>
+  res.status(OK_STATUS).json({
     status: 'success',
     data: {
       user: req.user,
     },
-  }));
+  })
+);

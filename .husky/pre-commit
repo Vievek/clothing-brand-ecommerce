@@ -1,1 +1,3 @@
 npm run lint:fix:backend
+npm run prettier:fix
+git add -A
