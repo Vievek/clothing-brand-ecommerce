@@ -14,7 +14,24 @@ const handleJWTExpiredError = () =>
   );
 
 const handleZodError = (error) => {
-  const message = error.errors.map((err) => err.message).join('. ');
+  let issues = [];
+
+  try {
+    // Parse the JSON string from error.message
+    issues = JSON.parse(error.message);
+  } catch {
+    // If parsing fails, use empty array
+    issues = [];
+  }
+
+  // Ensure it's an array and extract messages
+  const message = Array.isArray(issues)
+    ? issues
+        .map((issue) => issue.message)
+        .filter(Boolean) // Remove empty messages
+        .join('. ')
+    : error.message || 'Validation failed';
+
   return new AppError(message, BAD_REQUEST_STATUS);
 };
 

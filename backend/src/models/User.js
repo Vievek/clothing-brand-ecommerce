@@ -49,22 +49,18 @@ const userSchema = new mongoose.Schema(
   },
 );
 
-userSchema.pre('save', async function (next) {
-  if (!this.isModified('password')) {return next();}
+// FIXED: Simplified the pre-save middleware without try-catch
+userSchema.pre('save', async function () {
+  // Only run this function if password was actually modified
+  if (!this.isModified('password')) {return ;}
 
-  try {
-    this.password = await bcrypt.hash(this.password, BCRYPT_SALT_ROUNDS);
-    return next();
-  } catch (error) {
-    return next(error);
-  }
+  // Hash the password with cost of 12
+  this.password = await bcrypt.hash(this.password, BCRYPT_SALT_ROUNDS);
+
 });
 
-userSchema.methods.correctPassword = async function (
-  candidatePassword,
-  userPassword,
-) {
-  return await bcrypt.compare(candidatePassword, userPassword);
+userSchema.methods.correctPassword = async function (candidatePassword) {
+  return await bcrypt.compare(candidatePassword, this.password);
 };
 
 export default mongoose.model('User', userSchema);
