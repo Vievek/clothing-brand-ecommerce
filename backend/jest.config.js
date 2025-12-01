@@ -2,12 +2,10 @@ export default {
   testEnvironment: "node",
   setupFilesAfterEnv: ["<rootDir>/tests/setup.js"],
 
-  // Use babel-jest to transform JS files
   transform: {
     "^.+\\.js$": "babel-jest",
   },
 
-  // CORRECTED: moduleNameMapper instead of moduleNameMapping
   moduleNameMapper: {
     "^(\\.{1,2}/.*)\\.js$": "$1",
   },
@@ -22,7 +20,4 @@ export default {
       statements: 80,
     },
   },
-
-  // Set environment variables for tests
-  setupFiles: ["dotenv/config"],
 };

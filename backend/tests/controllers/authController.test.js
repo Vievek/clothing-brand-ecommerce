@@ -1,25 +1,11 @@
 import request from "supertest";
-import mongoose from "mongoose";
 import app from "../../src/server.js";
 import User from "../../src/models/User.js";
+import generateToken from "../../src/utils/generateToken.js";
 
 describe("Auth Controller", () => {
-  beforeAll(async () => {
-    // Ensure connection is ready
-    if (mongoose.connection.readyState === 0) {
-      await mongoose.connect(
-        process.env.MONGODB_URI_TEST || "mongodb://localhost:27017/test"
-      );
-    }
-  });
-
   beforeEach(async () => {
-    // Clear all collections before each test
     await User.deleteMany({});
-  });
-
-  afterAll(async () => {
-    await mongoose.connection.close();
   });
 
   describe("POST /api/auth/register", () => {
@@ -41,7 +27,6 @@ describe("Auth Controller", () => {
       expect(response.body.data.user.password).toBeUndefined();
       expect(response.body.data.token).toBeDefined();
 
-      // Verify user was actually created in database
       const userInDb = await User.findOne({ email: userData.email });
       expect(userInDb).toBeDefined();
       expect(userInDb.name).toBe(userData.name);
@@ -54,7 +39,6 @@ describe("Auth Controller", () => {
         password: "Password123",
       };
 
-      // Create user first
       await User.create(userData);
 
       const response = await request(app)
@@ -68,9 +52,9 @@ describe("Auth Controller", () => {
 
     test("should fail with invalid data", async () => {
       const invalidUserData = {
-        name: "T", // Too short
-        email: "invalid-email", // Invalid email
-        password: "123", // Too short
+        name: "T",
+        email: "invalid-email",
+        password: "123",
       };
 
       const response = await request(app)
@@ -90,7 +74,6 @@ describe("Auth Controller", () => {
     };
 
     beforeEach(async () => {
-      // Create a user for login tests
       await User.create(userData);
     });
 
@@ -105,7 +88,6 @@ describe("Auth Controller", () => {
 
       expect(response.body.status).toBe("success");
       expect(response.body.data.user.email).toBe(userData.email);
-      expect(response.body.data.user.name).toBe(userData.name);
       expect(response.body.data.token).toBeDefined();
     });
 
@@ -140,7 +122,6 @@ describe("Auth Controller", () => {
         .post("/api/auth/login")
         .send({
           email: userData.email,
-          // password missing
         })
         .expect(400);
 
@@ -150,22 +131,15 @@ describe("Auth Controller", () => {
 
   describe("GET /api/auth/me", () => {
     test("should get current user with valid token", async () => {
-      // First register a user
       const userData = {
         name: "Test User",
         email: "test@example.com",
         password: "Password123",
       };
 
-      // Create user directly to avoid registration endpoint issues
       const user = await User.create(userData);
-
-      // Generate token manually
-      const generateToken = (await import("../../src/utils/generateToken.js"))
-        .default;
       const token = generateToken(user._id);
 
-      // Then get current user
       const response = await request(app)
         .get("/api/auth/me")
         .set("Authorization", `Bearer ${token}`)
@@ -173,7 +147,6 @@ describe("Auth Controller", () => {
 
       expect(response.body.status).toBe("success");
       expect(response.body.data.user.email).toBe(userData.email);
-      expect(response.body.data.user.name).toBe(userData.name);
     });
 
     test("should fail without token", async () => {

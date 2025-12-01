@@ -6,6 +6,7 @@ import errorHandler from './middleware/errorHandler.js';
 
 // Route imports
 import authRoutes from './routes/authRoutes.js';
+import productRoutes from './routes/productRoutes.js';
 
 // Load env vars
 dotenv.config();
@@ -40,6 +41,7 @@ app.get('/api/health', (_req, res) => {
 
 // API routes
 app.use('/api/auth', authRoutes);
+app.use('/api/products', productRoutes);
 
 // Handle undefined routes
 app.use((_req, res) => {
